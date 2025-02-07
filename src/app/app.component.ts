@@ -48,7 +48,8 @@ export class AppComponent implements OnInit {
           this.selectedProduct = undefined;
         },
         error: (error) => {
-          this.handleErrorMessage(`Error updating product: ${error.errors.length ? error.errors[0].message : error.message}`)
+          console.error('Error updating product:', error);
+          this.handleErrorMessage(`Error updating product: ${error.errors?.length ? error.errors[0] : error.message}`)
         }
       });
     } else {
@@ -58,7 +59,8 @@ export class AppComponent implements OnInit {
           this.selectedProduct = undefined;
         },
         error: (error) => {
-          this.handleErrorMessage(`Error creating product: ${error.errors.length ? error.errors[0].message : error.message}`)
+          console.error('Error creating product:', error);
+          this.handleErrorMessage(`Error creating product: ${error.errors?.length ? error.errors[0] : error.message}`)
         }
       });
     }
@@ -76,7 +78,8 @@ export class AppComponent implements OnInit {
         }
       },
       error: (error) => {
-        this.handleErrorMessage(`Error deleting product: ${error.errors.length ? error.errors[0].message : error.message}`)
+        this.handleErrorMessage(`Error deleting product: ${error.errors?.length ? error.errors[0] : error.message}`)
+        console.error('Error deleting product:', error);
       }
     });
   }
