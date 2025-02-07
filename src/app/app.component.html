@@ -1,6 +1,20 @@
 <!-- Product Table -->
 <main class="min-h-screen bg-gray-50 p-8">
   <div class="mx-auto max-w-7xl space-y-8">
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5"
+      role="alert">
+      <span class="block sm:inline">{{ errorMessage }}</span>
+      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+        <svg (click)="clearErrorMessage()" class="fill-current h-6 w-6 text-red-500" role="button"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1 1 0 0 1-1.497 1.316l-2.851-2.75-2.85 2.75a1 1 0 1 1-1.497-1.316l2.85-2.75-2.85-2.75a1 1 0 1 1 1.497-1.316l2.85 2.75 2.851-2.75a1 1 0 0 1 1.497 1.316l-2.85 2.75 2.85 2.75a1 1 0 0 1 0 1.316z" />
+        </svg>
+      </span>
+    </div>
+
     <!-- Product Form -->
     <app-product-form [product]="selectedProduct" (save)="onSaveProduct($event)" (cancel)="onCancelForm()"
       class="mb-8"></app-product-form>

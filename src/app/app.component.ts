@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   products: Product[] = [];
   isLoading = false;
 
+  errorMessage: string | null = null;
+
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
     this.isLoading = true;
     this.productService.getProducts().subscribe({
       next: (products) => {
-        this.products = products;
+        this.products = products
         this.isLoading = false;
       },
       error: (error) => {
@@ -45,16 +47,19 @@ export class AppComponent implements OnInit {
           this.loadProducts();
           this.selectedProduct = undefined;
         },
-        // @fixme show errors to user
-        error: (error) => console.error('Error updating product:', error)
+        error: (error) => {
+          this.handleErrorMessage(`Error updating product: ${error.errors.length ? error.errors[0].message : error.message}`)
+        }
       });
     } else {
       this.productService.createProduct(productData).subscribe({
         next: () => {
           this.loadProducts();
+          this.selectedProduct = undefined;
         },
-        // @fixme show errors to user
-        error: (error) => console.error('Error creating product:', error)
+        error: (error) => {
+          this.handleErrorMessage(`Error creating product: ${error.errors.length ? error.errors[0].message : error.message}`)
+        }
       });
     }
   }
@@ -70,11 +75,21 @@ export class AppComponent implements OnInit {
           this.loadProducts();
         }
       },
-      error: (error) => console.error('Error deleting product:', error)
+      error: (error) => {
+        this.handleErrorMessage(`Error deleting product: ${error.errors.length ? error.errors[0].message : error.message}`)
+      }
     });
   }
 
   onCancelForm(): void {
     this.selectedProduct = undefined;
+  }
+
+  handleErrorMessage(message: string) {
+    this.errorMessage = message;
+  }
+
+  clearErrorMessage() {
+    this.errorMessage = null;
   }
 }
