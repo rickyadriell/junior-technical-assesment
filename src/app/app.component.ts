@@ -34,7 +34,6 @@ export class AppComponent implements OnInit {
         this.products = products
         this.clearErrorMessage();
         this.isLoading = false;
-        
       },
       error: (error) => {
         console.error('Error loading products:', error);
