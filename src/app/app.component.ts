@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next: (products) => {
         this.products = products
+        this.clearErrorMessage();
         this.isLoading = false;
       },
       error: (error) => {
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit {
       this.productService.updateProduct(this.selectedProduct.id, productData).subscribe({
         next: () => {
           this.loadProducts();
+          this.clearErrorMessage();
           this.selectedProduct = undefined;
         },
         error: (error) => {
@@ -56,6 +58,7 @@ export class AppComponent implements OnInit {
       this.productService.createProduct(productData).subscribe({
         next: () => {
           this.loadProducts();
+          this.clearErrorMessage();
           this.selectedProduct = undefined;
         },
         error: (error) => {
@@ -75,6 +78,7 @@ export class AppComponent implements OnInit {
       next: (success) => {
         if (success) {
           this.loadProducts();
+          this.clearErrorMessage();
         }
       },
       error: (error) => {
