@@ -16,8 +16,9 @@
     </div>
 
     <!-- Product Form -->
-    <app-product-form [product]="selectedProduct" (save)="onSaveProduct($event)" (cancel)="onCancelForm()"
-      class="mb-8"></app-product-form>
+    <app-product-form #productFormComponent [product]="selectedProduct" (save)="onSaveProduct($event)"
+      (cancel)="onCancelForm()" class="mb-8">
+    </app-product-form>
 
     <!-- Loading State -->
     <div *ngIf="isLoading" class="flex justify-center items-center py-8">

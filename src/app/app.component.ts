@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductFormComponent } from './product-form/product-form.component';
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
 
   errorMessage: string | null = null;
 
+  @ViewChild(ProductFormComponent) productFormComponent?: ProductFormComponent; // ✅ Get form reference
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class AppComponent implements OnInit {
         this.products = products
         this.clearErrorMessage();
         this.isLoading = false;
+        
       },
       error: (error) => {
         console.error('Error loading products:', error);
@@ -48,6 +50,7 @@ export class AppComponent implements OnInit {
           this.loadProducts();
           this.clearErrorMessage();
           this.selectedProduct = undefined;
+          this.productFormComponent?.resetForm();
         },
         error: (error) => {
           console.error('Error updating product:', error);
@@ -60,6 +63,7 @@ export class AppComponent implements OnInit {
           this.loadProducts();
           this.clearErrorMessage();
           this.selectedProduct = undefined;
+          this.productFormComponent?.resetForm();
         },
         error: (error) => {
           console.error('Error creating product:', error);
