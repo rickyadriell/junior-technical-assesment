@@ -11,7 +11,7 @@ describe('ProductFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ProductFormComponent, ReactiveFormsModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ProductFormComponent);
     component = fixture.componentInstance;
@@ -91,12 +91,26 @@ describe('ProductFormComponent', () => {
     expect(emitSpy).not.toHaveBeenCalled();
   });
 
-  xit('should emit cancel event', () => {
-    // @fixme complete this test
+  it('should emit cancel event', () => {
+    const emitSpy = jest.spyOn(component.cancel, 'emit');
+
+    component.onCancel();
+
+    expect(emitSpy).toHaveBeenCalled();
   });
 
-  xit('should reset form on cancel', () => {
-    // @fixme complete this test
+  it('should reset form on cancel', () => {
+    component.productForm.setValue({
+      name: 'Test Product',
+      description: 'Test Description',
+      department: 'Test Department'
+    });
+
+    component.onCancel();
+
+    expect(component.productForm.get('name')?.value).toBe('');
+    expect(component.productForm.get('description')?.value).toBe('');
+    expect(component.productForm.get('department')?.value).toBe('');
   });
 
   it('should populate form when product input changes', () => {
