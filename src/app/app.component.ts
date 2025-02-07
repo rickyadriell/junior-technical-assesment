@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductService } from './services/product.service';
 import { Product } from './models/product.model';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, ProductFormComponent],
+  imports: [RouterOutlet, CommonModule, ProductFormComponent, ProductCardComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
@@ -17,7 +18,7 @@ export class AppComponent implements OnInit {
   products: Product[] = [];
   isLoading = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.loadProducts();
